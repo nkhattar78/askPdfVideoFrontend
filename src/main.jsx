@@ -1,6 +1,8 @@
 // Global server URL for API calls
-// export const ServerURL = "http://localhost:8000";
-export const ServerURL = "https://askpdfvideo-dvfjcqd0hzbvd4f4.canadacentral-01.azurewebsites.net";
+
+// IMP NOTE: After any change in main.jsx, "npm run dev" has to happen again
+export const ServerURL = "http://localhost:8000";
+// export const ServerURL = "https://askpdfvideo-dvfjcqd0hzbvd4f4.canadacentral-01.azurewebsites.net";
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'

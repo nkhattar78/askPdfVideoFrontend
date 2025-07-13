@@ -118,11 +118,14 @@ function App() {
                         const res = await fetch(`${ServerURL}/query_youtube/`, {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({ query: ytPrompt, video_url: videoUrl, k: 3 }),
+                          body: JSON.stringify({ query: ytPrompt, video_url: videoUrl, k: 3, manual_transcript: "string"}),
                         });
                         if (res.ok) {
                           let data = await res.json();
                           let answer = data.answer;
+                          console.log("res: ",  res)
+                          console.log("data: ",  data)
+                          console.log("data.answer: ", data.answer)
                           if (typeof answer === 'string') {
                             answer = answer.replace(/\\n/g, '');
                             if (answer.startsWith('"') && answer.endsWith('"')) {
@@ -131,9 +134,11 @@ function App() {
                           }
                           setYtResponse(answer);
                         } else {
+                          console.log("Query Failed")
                           setYtResponse('Query failed.');
                         }
                       } catch {
+                        console.log("Error Querying API")
                         setYtResponse('Error querying API.');
                       }
                     }}
