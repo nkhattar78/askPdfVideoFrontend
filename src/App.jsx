@@ -19,30 +19,33 @@ function App() {
     setPrompt('');
   };
 
-  const handleVideoAnalysis = () => {
+  const handleVideoAnalysis = async () => {
     if (!videoUrl) {
       setVideoMessage('Please enter a valid video URL.');
       return;
     }
-    setVideoMessage('Uploading transcript...');    
-    fetch(`${ServerURL}/upload-youtube/`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ video_url: videoUrl }),
-    })
-      .then(res => {
-        if (res.ok) {
-          setVideoMessage('Transcript uploaded! You can now ask questions.');
-          setYtTranscriptUploaded(true);
-        } else {
-          setVideoMessage('Failed to upload transcript.');
-          setYtTranscriptUploaded(false);
-        }
-      })
-      .catch(() => {
-        setVideoMessage('Error uploading transcript.');
-        setYtTranscriptUploaded(false);
+    setVideoMessage('Uploading transcript...');
+    try {
+      const res = await fetch(`${ServerURL}/upload-youtube/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          video_url: videoUrl,
+          manual_transcript: "string",
+          use_fallback: true
+        }),
       });
+      if (res.ok) {
+        setVideoMessage('Transcript uploaded! You can now ask questions.');
+        setYtTranscriptUploaded(true);
+      } else {
+        setVideoMessage('Failed to upload transcript.');
+        setYtTranscriptUploaded(false);
+      }
+    } catch {
+      setVideoMessage('Error uploading transcript.');
+      setYtTranscriptUploaded(false);
+    }
   };
 
   const renderPageContent = () => {
