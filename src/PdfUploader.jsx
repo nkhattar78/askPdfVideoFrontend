@@ -55,7 +55,7 @@ function PdfUploader() {
     }
     setQueryResult('Querying...');
     try {
-      const response = await fetch(`${ServerURL}/query_qdrant/`, {
+      const response = await fetch(`${ServerURL}/query/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: query, k: 3 }),

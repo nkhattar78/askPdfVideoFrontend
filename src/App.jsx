@@ -30,12 +30,12 @@ function App() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          video_url: videoUrl,
-          manual_transcript: "string",
+          video_url: videoUrl,          
           use_fallback: true
         }),
       });
       if (res.ok) {
+        console.log("Upload Transcript API Response", res.data);
         setVideoMessage('Transcript uploaded! You can now ask questions.');
         setYtTranscriptUploaded(true);
       } else {
@@ -115,7 +115,7 @@ function App() {
                       }
                       setYtResponse('Querying...');
                       try {                        
-                        const res = await fetch(`${ServerURL}/query_youtube/`, {
+                        const res = await fetch(`${ServerURL}/query-youtube/`, {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
                           body: JSON.stringify({ query: ytPrompt, video_url: videoUrl, k: 3, manual_transcript: "string"}),
