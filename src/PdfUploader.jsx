@@ -96,6 +96,7 @@ function PdfUploader() {
 
       <div className='prompt-section'>
         <input
+             color="#f5f5f5" 
              type="text"
              placeholder="Type your question..."
              value={query}
